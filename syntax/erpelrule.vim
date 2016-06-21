@@ -6,20 +6,29 @@ if exists("b:current_syntax")
   finish
 endif
 
-syn match erpelAliasReference "\v\{\{[a-zA-Z0-9_-]+\}\}"
-syn match erpelComment "\v#.*$"
-
-syn region erpelCharClass start='\v[^\\]\zs\[' skip='\v\\.' end='\v[^\\]\zs\]' contains=erpelOp
-
-syn match erpelOp "\v[^\\]\zs\("
-syn match erpelOp "\v[^\\]\zs\)"
-syn match erpelOp "\v[^\\]\zs\\[a-zA-Z][+*?]?"
-syn match erpelOp "\v[^\\]\zs\."
-
 let b:current_syntax = "erpelrule"
 
+syn region erpelFieldDefinition start='field ' end='}' nextgroup=erpelField contains=erpelField,erpelFieldKeywords,erpelFieldValue,erpelComment skipwhite transparent
+
+syn keyword erpelField field nextgroup=erpelFieldName skipwhite contained
+syn match erpelFieldName '\v[a-zA-Z0-9._-]+' nextgroup=erpelFieldValue contained skipwhite contained
+syn keyword erpelFieldKeywords template pattern samples contained
+syn match erpelFieldValue '\v"[^"]*"' contained
+syn match erpelFieldValue "\v'[^']*'" contained
+syn match erpelFieldValue '\v`[^`]*`' contained
+
+syn region erpelMessages start='\v^\s*---+\s*$' end='\v%$' contains=erpelSectionMark,erpelComment,erpelMessage transparent
+syn match erpelMessage '\v^.*$' contained
+syn match erpelSectionMark '\v^\s*---+\s*$' contained
+
+syn match erpelComment "\v#.*$" contains=@spell
+
 hi def link erpelComment Comment
-hi def link erpelAliasReference  Identifier
-hi def link erpelCharClass Character
-hi def link erpelOp Operator
-hi def link erpelNonOp Text
+
+hi def link erpelFieldKeywords Keyword
+hi def link erpelField Keyword
+hi def link erpelFieldName Label
+hi def link erpelFieldValue String
+
+hi def link erpelSectionMark Special
+hi def link erpelMessage String
