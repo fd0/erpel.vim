@@ -17,6 +17,20 @@ syn match erpelString '\v"[^"]*"'
 syn match erpelString "\v'[^']*'"
 syn match erpelString '\v`[^`]*`'
 
+syn region erpelFieldDefinition start='field ' end='}' nextgroup=erpelField contains=erpelField,erpelFieldKeywords,erpelFieldValue,erpelComment skipwhite transparent
+
+syn keyword erpelField field nextgroup=erpelFieldName skipwhite contained
+syn match erpelFieldName '\v[a-zA-Z0-9._-]+' nextgroup=erpelFieldValue contained skipwhite contained
+syn keyword erpelFieldKeywords template pattern samples contained
+syn match erpelFieldValue '\v"[^"]*"' contained
+syn match erpelFieldValue "\v'[^']*'" contained
+syn match erpelFieldValue '\v`[^`]*`' contained
+
+hi def link erpelFieldKeywords Keyword
+hi def link erpelField Keyword
+hi def link erpelFieldName Label
+hi def link erpelFieldValue String
+
 
 hi def link erpelKeywords          Keyword
 
