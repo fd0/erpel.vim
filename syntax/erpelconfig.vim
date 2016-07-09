@@ -8,7 +8,7 @@ endif
 
 let b:current_syntax = "erpelconfig"
 
-syn keyword erpelKeywords rules_dir state_dir prefix
+syn keyword erpelKeywords rules_dir state_dir
 
 syn match erpelComment "\v#.*$"
 syn match erpelAssignment "\v\="
