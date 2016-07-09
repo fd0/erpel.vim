@@ -8,14 +8,16 @@ endif
 
 let b:current_syntax = "erpelrule"
 
+syn keyword erpelKeywords prefix
+
 syn region erpelFieldDefinition start='field ' end='}' nextgroup=erpelField contains=erpelField,erpelFieldKeywords,erpelFieldValue,erpelComment skipwhite transparent
 
 syn keyword erpelField field nextgroup=erpelFieldName skipwhite contained
 syn match erpelFieldName '\v[a-zA-Z0-9._-]+' nextgroup=erpelFieldValue contained skipwhite contained
 syn keyword erpelFieldKeywords template pattern samples contained
-syn match erpelFieldValue '\v"[^"]*"' contained
-syn match erpelFieldValue "\v'[^']*'" contained
-syn match erpelFieldValue '\v`[^`]*`' contained
+syn match erpelFieldValue '\v"[^"]*"'
+syn match erpelFieldValue "\v'[^']*'"
+syn match erpelFieldValue '\v`[^`]*`'
 
 syn region erpelMessages start='\v^\s*---+\s*$' end='\v%$' contains=erpelSectionMark,erpelComment,erpelMessage transparent
 syn match erpelMessage '\v^.*$' contained
@@ -24,6 +26,8 @@ syn match erpelSectionMark '\v^\s*---+\s*$' contained
 syn match erpelComment "\v#.*$" contains=@spell
 
 hi def link erpelComment Comment
+
+hi def link erpelKeywords          Keyword
 
 hi def link erpelFieldKeywords Keyword
 hi def link erpelField Keyword
